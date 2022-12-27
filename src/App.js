@@ -1,10 +1,16 @@
 import './App.css';
+import Recipes from "./components/Recipes";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
-    <div className="App">
-      Recipe App
-    </div>
+      <>
+          <Navbar/>
+          <div className="container">
+              <Recipes/>
+          </div>
+      </>
+
   );
 }
 
