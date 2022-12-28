@@ -36,6 +36,12 @@
   margin-bottom: 50px;
 }
 
+.recipeLink {
+  text-decoration: none;
+  cursor: auto;
+}
+
+
 .recipeThumbnail > div {
   visibility: hidden;
 }
@@ -51,6 +57,7 @@
   width: 200px;
   height: 200px;
   background: hsla(0, 1%, 27%, 0.5);
+  cursor: pointer;
 }
 .thumbnailTitle {
   color: #fff;
@@ -60,4 +67,48 @@
 .searchBar {
   margin: 20px 0;
   text-align: center;
+}
+
+/* Meal Page */
+.mealContainer {
+  display: grid;
+  grid-template-areas:
+          'title title title'
+          'category category category'
+          'img img ing'
+          'img img ing'
+          'ins ins ins'
+          'btn btn btn'
+}
+
+.mealTitle {
+  grid-area: title;
+}
+
+.category {
+  grid-area: category;
+}
+
+.mealTitle,.category,.backButton {
+  text-align: center;
+}
+
+.mealImage {
+  grid-area: img;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mealIngredients {
+  grid-area: ing;
+}
+
+.mealInstructions {
+  grid-area: ins;
+}
+
+.backButton {
+  grid-area: btn;
+  cursor: pointer;
 }

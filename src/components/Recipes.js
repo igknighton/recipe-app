@@ -28,7 +28,12 @@ const Recipes = () => {
                     recipes === null ?
                         <div className={'notFound'}>Recipes not found</div> :
                     recipes.map(r =>
-                        <RecipeThumbnail key={r.idMeal} name={r.strMeal} imgUrl={r.strMealThumb}/>
+                        <RecipeThumbnail
+                            key={r.idMeal}
+                            name={r.strMeal}
+                            imgUrl={r.strMealThumb}
+                            mealId={r.idMeal}
+                        />
                     )
                 }
             </div>
