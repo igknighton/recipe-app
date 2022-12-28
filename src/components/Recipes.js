@@ -1,20 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 import RecipeThumbnail from "./RecipeThumbnail";
-
+import useApi from "../hooks/useApi";
 const Recipes = () => {
 
-    const recipes = [
-        {name:'1',id:1},
-        {name:'2',id:2},
-        {name:'3',id:3},
-        {name:'4',id:4},
-        {name:'5',id:5},
-    ];
+    const [recipes,setRecipes] = useState([]);
 
-
-    const handleSearch = e => {
-        e.preventDefault();
-        console.log("test");
+    const {searchMeals} = useApi();
+    const handleSearch = async e => {
+        try {
+            e.preventDefault();
+            const searchKeyword = e.target.elements[0].value;
+            const res = await searchMeals(searchKeyword);
+            setRecipes(res.data.meals);
+        } catch (e) {
+            console.error("An Error Occurred",e);
+        }
     }
 
     return (
@@ -25,9 +25,11 @@ const Recipes = () => {
             </form>
             <div className={'recipeContainer'}>
                 {
-                    recipes.map(r => (
-                        <RecipeThumbnail key={r.id} name={r.name}/>
-                    ))
+                    recipes === null ?
+                        <div className={'notFound'}>Recipes not found</div> :
+                    recipes.map(r =>
+                        <RecipeThumbnail key={r.idMeal} name={r.strMeal} imgUrl={r.strMealThumb}/>
+                    )
                 }
             </div>
         </>

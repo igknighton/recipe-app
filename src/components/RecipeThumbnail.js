@@ -1,9 +1,16 @@
 import React from 'react';
 
-const RecipeThumbnail = ({name}) => {
+const RecipeThumbnail = ({name,imgUrl}) => {
+
+    const thumbNail = {
+        backgroundImage: `url(${imgUrl})`,
+        backgroundSize:'cover'
+    }
     return (
-        <div className={'recipeThumbnail'}>
-            {name}
+        <div className={'recipeThumbnail'} style={thumbNail}>
+            <div className={'thumbnailTitle'}>
+                {name}
+            </div>
         </div>
     );
 };
