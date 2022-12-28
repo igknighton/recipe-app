@@ -36,6 +36,22 @@
   margin-bottom: 50px;
 }
 
+.recipeThumbnail > div {
+  visibility: hidden;
+}
+
+.recipeThumbnail:hover > div {
+  visibility: visible;
+}
+
+.thumbnailBackground {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 200px;
+  background: hsla(0, 1%, 27%, 0.5);
+}
 .thumbnailTitle {
   color: #fff;
   font-weight: 700;
