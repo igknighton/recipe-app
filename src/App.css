@@ -25,6 +25,20 @@
   justify-content: center;
 }
 
+.searchBy {
+
+}
+
+.searchByButtons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.searchByBtn {
+  cursor: pointer;
+  background: #8d8c8c;
+  color: white;
+}
 
 .recipeThumbnail {
   display: flex;
@@ -60,6 +74,7 @@
   cursor: pointer;
 }
 .thumbnailTitle {
+  text-align: center;
   color: #fff;
   font-weight: 700;
 }
