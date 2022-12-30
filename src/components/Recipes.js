@@ -5,7 +5,7 @@ import {logDOM} from "@testing-library/react";
 const Recipes = () => {
 
     const [recipes,setRecipes] = useState([]);
-    const [searchOption,setSearchOption] = useState(2);
+    const [searchOption,setSearchOption] = useState(1);
         const {
         searchMeals,
         searchRegion,
@@ -49,8 +49,8 @@ const Recipes = () => {
 
     const KeywordSearch = () => {
         return <form className={'searchBar'} onSubmit={handleSearch}>
-            <input type="text"/>
-            <input type="submit" value={'Search'}/>
+            <input className={'searchInputText'} type="text"/>
+            <input className={'searchByBtn searchInputBtn'} type="submit" value={'Search'}/>
         </form>
     }
 
@@ -78,7 +78,7 @@ const Recipes = () => {
     return (
         <>
             <div className="searchBy">
-                <h3>Select a search option: </h3>
+                <h3>Search By: </h3>
                 <div className="searchByButtons">
                     <div onClick={() =>setSearchOption(1)} className="searchByBtn">Keyword</div>
                     <div onClick={() =>setSearchOption(3)} className="searchByBtn">Category</div>
@@ -87,41 +87,43 @@ const Recipes = () => {
             </div>
             { searchOption === 1 && <KeywordSearch/> }
             { searchOption === 2 && <form className={'searchBar'} onSubmit={searchByRegion}>
-                <label htmlFor="region">Region:</label>
-                <select name="region" id="region" onChange={handleRegion}>
+                <label htmlFor="region"><b>Region:</b></label>
+                <select className={'searchInputText'} name="region" id="region" onChange={handleRegion}>
                     {
                         regions.map(region => (
                             <option
                                 value={region.strArea}
-                                key={region.strArea}>
+                                key={region.idMeal}>
                                 {region.strArea}
                             </option>
                         ))
                     }
                 </select>
-                <input type="submit" value={'Search'}/>
+                <input className={'searchByBtn searchInputBtn'} type="submit" value={'Search'}/>
             </form>
             }
             { searchOption === 3 && <form className={'searchBar'} onSubmit={searchByCategory}>
-                <label htmlFor="category">Category:</label>
-                <select name="category" id="category" onChange={handleCategory}>
+                <label htmlFor="category"><b>Category:</b></label>
+                <select className={'searchInputText'} name="category" id="category" onChange={handleCategory}>
                     {
                         categories.map(category => (
                             <option
                                 value={category.strCategory}
-                                key={category.strCategory}>
+                                key={category.idMeal}>
                                 {category.strCategory}
                             </option>
                         ))
                     }
                 </select>
-                <input type="submit" value={'Search'}/>
+                <input className={'searchByBtn searchInputBtn'} type="submit" value={'Search'}/>
             </form>
             }
             <div className={'recipeContainer'}>
                 {
                     recipes === null ?
-                        <div className={'notFound'}>Recipes not found</div> :
+                        <div className={'notFound'}>
+                            <h1>Recipes not found</h1>
+                        </div> :
                     recipes.map(r =>
                         <RecipeThumbnail
                             key={r.idMeal}

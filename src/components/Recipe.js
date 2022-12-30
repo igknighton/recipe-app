@@ -8,7 +8,7 @@ const Recipe = () => {
     const {id} = useParams();
     const {loadMeal} = useApi();
 
-    const [meal,setMeal] = useState({});
+    const [meal,setMeal] = useState(null);
     const [ingredients,setIngredients] = useState([]);
 
     const navigate = useNavigate();
@@ -79,17 +79,35 @@ const Recipe = () => {
                         <h1 className={'mealTitle'}>{meal.strMeal}</h1>
                         <h2 className={'category'}>Category: {meal.strCategory}</h2>
                         <div className={'mealImage'}>
-                            <img src={meal.strMealThumb} alt=""/>
+                            <img className={'imgBorder'} src={meal.strMealThumb} alt={meal.strMeal ?? 'meal'}/>
                         </div>
-                        <ul className={'mealIngredients'}>
-                            {ingredients.map(i => (
-                                <li key={i.ingredient}>
-                                    {i.ingredient} <b>({i.measurement})</b>
-                                </li>
-                            ))}
-                        </ul>
-                        <p className={'mealInstructions'}>{meal.strInstructions}</p>
-                        <div className={'backButton'} onClick={goBack}>Back</div>
+                        <div className="mealIngredients">
+                            <div className={'ingredientsHeader'}>Ingredients</div>
+                            <ul className={'ingredientsList'}>
+                                {ingredients.map(i => (
+                                    <li key={i.ingredient + '-' + i.measurement}>
+                                        {i.ingredient} <b>({i.measurement})</b>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div className="mobileIngredients">
+                            <h1 className={'mobileHeader'}>Ingredients</h1>
+                            <ul className={'ingredientsList'}>
+                                {ingredients.map(i => (
+                                    <li key={i.ingredient + '-' + i.measurement}>
+                                        {i.ingredient} <b>({i.measurement})</b>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div className={'mealInstructions'}>
+                            <h1>Instructions</h1>
+                            <p>{meal.strInstructions}</p>
+                        </div>
+                        <div className={'backButton searchByBtn'} onClick={goBack}>
+                            Back
+                        </div>
                     </> :
                 <h1 className={'mealTitle'}>
                     Recipe not found
@@ -97,6 +115,6 @@ const Recipe = () => {
             }
         </div>
     );
-};
+}
 
 export default Recipe;
