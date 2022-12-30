@@ -10,7 +10,7 @@ body {
 
 :root {
   ---primary: rgba(109, 49, 22, 0.87);
-  ---secondary: rgba(241, 200, 115, 0.93);
+  ---secondary: rgba(255, 212, 124, 0.93);
   ---primary-text: #fff;
   ---image-border-color: #fff;
   ---borderBottom: 2px var(---primary) solid;

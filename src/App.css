@@ -67,6 +67,7 @@
   border: 5px var(---image-border-color) solid;
   border-radius: 5px;
   margin-bottom: 50px;
+  box-shadow: 10px 5px 15px #333;
 }
 
 .recipeLink {
@@ -76,11 +77,12 @@
 
 
 .recipeThumbnail > div {
-  visibility: hidden;
+  opacity: 0;
+  transition: all .1s ease-in-out;
 }
 
 .recipeThumbnail:hover > div {
-  visibility: visible;
+  opacity: 1;
 }
 
 .thumbnailBackground {
@@ -139,6 +141,7 @@
 .imgBorder {
   border: var(---image-border-color) 5px solid;
   border-radius: 5px;
+  box-shadow: 10px 5px 15px #333;
 }
 
 .mealIngredients {
