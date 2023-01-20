@@ -1,9 +1,12 @@
-import React from 'react';
+import {useState} from 'react';
 import axios from "axios";
-
+import StatusTypes from "../StatusTypes";
 const useApi = () => {
 
+    const [status, setStatus] = useState(StatusTypes.IDLE);
+
     const api = async query => {
+        setStatus(StatusTypes.PENDING);
         return await axios.get(`https://www.themealdb.com/api/json/v1/1/${query}`);
     }
 
@@ -38,6 +41,8 @@ const useApi = () => {
     }
 
     return {
+        status,
+        setStatus,
         searchMeals,
         loadMeal,
         searchCategory,

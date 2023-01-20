@@ -2,11 +2,12 @@ import React, {useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import useApi from "../hooks/useApi";
 import { useNavigate } from "react-router-dom";
+import StatusTypes from "../StatusTypes";
 
 const Recipe = () => {
 
     const {id} = useParams();
-    const {loadMeal} = useApi();
+    const {loadMeal,status,setStatus} = useApi();
 
     const [meal,setMeal] = useState(null);
     const [ingredients,setIngredients] = useState([]);
@@ -67,11 +68,21 @@ const Recipe = () => {
             } else {
                 setMeal(meal);
             }
+            setStatus(StatusTypes.RESOLVED);
         }
-        ).catch(e => console.error("Error loading meal",e))
+        ).catch(e => {
+            console.error("Error loading meal", e);
+            setStatus(StatusTypes.REJECTED);
+        })
     },[]);
 
-    return (
+
+    if (status === StatusTypes.PENDING || status === StatusTypes.IDLE) {
+        return <h1 className={'mealTitle'}>
+            Loading...
+        </h1>
+    }
+    else if (status === StatusTypes.RESOLVED) return (
         <div className={'mealContainer'}>
             {
                 meal ?
@@ -115,6 +126,11 @@ const Recipe = () => {
             }
         </div>
     );
+    else if (status === StatusTypes.REJECTED) {
+        return <h1 className="mealTitle">An Error occurred while retrieving recipe</h1>
+    } else {
+        throw new Error('An unexpected error occurred')
+    }
 }
 
 export default Recipe;
