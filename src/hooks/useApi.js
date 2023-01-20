@@ -1,8 +1,13 @@
 import {useState} from 'react';
 import axios from "axios";
-import StatusTypes from "../StatusTypes";
 const useApi = () => {
 
+    const StatusTypes = {
+        IDLE : 'IDLE',
+        PENDING: 'PENDING',
+        REJECTED: 'REJECTED',
+        RESOLVED: 'RESOLVED'
+    };
     const [status, setStatus] = useState(StatusTypes.IDLE);
 
     const api = async query => {
@@ -43,6 +48,7 @@ const useApi = () => {
     return {
         status,
         setStatus,
+        StatusTypes,
         searchMeals,
         loadMeal,
         searchCategory,
