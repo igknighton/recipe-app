@@ -6,20 +6,28 @@ const Recipes = () => {
 
     const [recipes,setRecipes] = useState([]);
     const [searchOption,setSearchOption] = useState(1);
-        const {
+    const {
         searchMeals,
         searchRegion,
         searchCategory,
         listCategories,
-        listRegions
+        listRegions,
+        setStatus,
+        status,
+        StatusTypes
     } = useApi();
 
+    const {REJECTED,RESOLVED,IDLE,PENDING} =StatusTypes;
+    const handleRecipes = meals => {
+        setRecipes(meals);
+        setStatus(RESOLVED);
+    }
     const handleSearch = async e => {
         try {
             e.preventDefault();
             const searchKeyword = e.target.elements[0].value;
             const res = await searchMeals(searchKeyword);
-            setRecipes(res.data.meals);
+            handleRecipes(res.data.meals);
         } catch (e) {
             console.error("An Error Occurred",e);
         }
@@ -34,7 +42,7 @@ const Recipes = () => {
         try {
             e.preventDefault();
             const meals = await searchCategory(selectedCat);
-            setRecipes(meals);
+            handleRecipes(meals);
         } catch (e) {
             console.error('An Error Occurred', e);
         }
@@ -42,7 +50,10 @@ const Recipes = () => {
 
     useEffect(() => {
         listCategories().then(
-            categories => setCategories(categories)
+            categories => {
+                setCategories(categories);
+                setStatus(RESOLVED);
+            }
         );
     }, []);
 
@@ -63,7 +74,7 @@ const Recipes = () => {
         try {
             e.preventDefault();
             const meals = await searchRegion(selectedRegion);
-            setRecipes(meals);
+            handleRecipes(meals);
         } catch (e) {
             console.error('An Error Occurred',e);
         }
@@ -71,7 +82,10 @@ const Recipes = () => {
 
     useEffect(() => {
         listRegions().then(
-            regions => setRegions(regions)
+            regions => {
+                setRegions(regions);
+                setStatus(RESOLVED);
+            }
         )
     },[]);
 
@@ -120,18 +134,23 @@ const Recipes = () => {
             }
             <div className={'recipeContainer'}>
                 {
-                    recipes === null ?
-                        <div className={'notFound'}>
-                            <h1>Recipes not found</h1>
-                        </div> :
-                    recipes.map(r =>
-                        <RecipeThumbnail
-                            key={r.idMeal}
-                            name={r.strMeal}
-                            imgUrl={r.strMealThumb}
-                            mealId={r.idMeal}
-                        />
-                    )
+                    status === PENDING && <h1>Loading...</h1>
+                }
+                {
+                    status === RESOLVED && <>
+                        {recipes === null ?
+                            <div className={'notFound'}>
+                                <h1>Recipes not found</h1>
+                            </div> :
+                            recipes.map(r =>
+                                <RecipeThumbnail
+                                    key={r.idMeal}
+                                    name={r.strMeal}
+                                    imgUrl={r.strMealThumb}
+                                    mealId={r.idMeal}
+                                />)
+                        }
+                    </>
                 }
             </div>
         </>
