@@ -52,6 +52,7 @@ const Recipes = () => {
         listCategories().then(
             categories => {
                 setCategories(categories);
+                setSelectedCat(categories[0].strCategory)
                 setStatus(RESOLVED);
             }
         );
@@ -84,6 +85,7 @@ const Recipes = () => {
         listRegions().then(
             regions => {
                 setRegions(regions);
+                setSelectedRegion(regions[0].strArea);
                 setStatus(RESOLVED);
             }
         )
@@ -104,10 +106,10 @@ const Recipes = () => {
                 <label htmlFor="region"><b>Region:</b></label>
                 <select className={'searchInputText'} name="region" id="region" onChange={handleRegion}>
                     {
-                        regions.map(region => (
+                        regions.map((region,index) => (
                             <option
                                 value={region.strArea}
-                                key={region.idMeal}>
+                                key={`region-${index}`}>
                                 {region.strArea}
                             </option>
                         ))
@@ -120,10 +122,10 @@ const Recipes = () => {
                 <label htmlFor="category"><b>Category:</b></label>
                 <select className={'searchInputText'} name="category" id="category" onChange={handleCategory}>
                     {
-                        categories.map(category => (
+                        categories.map((category,index) => (
                             <option
                                 value={category.strCategory}
-                                key={category.idMeal}>
+                                key={`category-${index}`}>
                                 {category.strCategory}
                             </option>
                         ))
