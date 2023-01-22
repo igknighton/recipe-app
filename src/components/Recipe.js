@@ -29,7 +29,7 @@ const Recipe = () => {
 
         //filter ingredients
         Object.keys(mealObj).forEach(function(key,index) {
-            if (key.includes("Ingredient") && mealObj[key].trim() !== '') {
+            if (key.includes("Ingredient") && mealObj[key] && mealObj[key].trim() !== '') {
                 ingredients[cnt] = mealObj[key].trim();
                 cnt++;
             }
@@ -39,7 +39,7 @@ const Recipe = () => {
 
         // filter measurements
         Object.keys(mealObj).forEach(function(key) {
-            if (key.includes("Measure") && mealObj[key].trim() !== '') {
+            if (key.includes("Measure") && mealObj[key] && mealObj[key].trim() !== '') {
                 measurements[cnt] = mealObj[key].trim();
                 cnt++;
             }
